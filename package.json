@@ -1,0 +1,21 @@
+{
+  "name": "conqueror",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "aframe": "^1.6.0",
+    "express": "^4.21.1",
+    "p5": "^1.11.2",
+    "socket.io": "^4.8.1"
+  },
+  "engines": {
+    "node": "16.x"
+  }
+}

@@ -1,66 +1,96 @@
-//------------Initialize the express 'app' object--------
-let express = require("express"); 
-let app = express(); 
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
+const path = require('path');
 
-//----------Initialize HTTP server------
-let http = require("http");
-let server = http.createServer(app);
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
-//------------Initialize socket.io---------
-let io = require("socket.io");
-io = new io.Server(server);
+// Serve static files for pagea and pageb
+app.use('/pagea', express.static(path.join(__dirname, 'public/pagea')));
+app.use('/pageb', express.static(path.join(__dirname, 'public/pageb')));
+app.use('/pagec', express.static(path.join(__dirname, 'public/pagec')));
 
-// ------Set the server to listen on port 3000 -------
-let port = process.env.PORT || 3000;  
-server.listen(port, () => {  
-    console.log(`Server is running on port ${port}`);  
-});
+// 默认路由，重定向到 /pagea
+app.get('/', (req, res) => {
+    res.redirect('/pagea');
+  });
+  
 
-
+// Initialize card positions for pageb
 let cardPositions = {};
 
-app.use("/", express.static("public"));
+// Handle WebSocket connections
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id);
 
-// Handle a new connection event
-io.on("connection", (socket) => {  // Listen for clients connecting to the Socket.IO server
-    console.log("A user connected:" + socket.id);  // Log when a user successfully connects to the server
-    
+    // Get the client's referring page
+    const referer = socket.handshake.headers.referer;
+    console.log('Client connected from:', referer);
 
-// 发送当前的卡片位置给新连接的用户
-socket.emit("initialize-cards", Object.values(cardPositions));
+    if (referer && referer.includes('/pagea')) {
+        console.log('Client is from /pagea');
 
-// 监听卡片移动事件
-socket.on("move-card", (data) => {
-    // 更新卡片位置
-    cardPositions[data.id] = { id: data.id, x: data.x, y: data.y };
 
-    // 广播给所有客户端，更新卡片位置
-    io.emit("move-card", cardPositions[data.id]);
-  });
+// Broadcast random card images when a new client connects
+socket.on('randomizeCards', (shuffledImages) => {
+    // Emit the shuffled image order to all clients
+    io.emit('randomizeCards', shuffledImages);
+});
 
-  // 监听卡片初始位置的同步事件
-  socket.on("initialize-s", (positions) => {
-    // 更新全局卡片位置
-    positions.forEach((pos) => {
-      cardPositions[pos.id] = { id: pos.id, x: pos.x, y: pos.y };
+        // Listen for flipCard events (specific to /pagea)
+        socket.on('flipCard', (cardIndex) => {
+            console.log(`FlipCard event received for /pagea, cardIndex: ${cardIndex}`);
+            socket.broadcast.emit('flipCard', cardIndex);
+        });
+
+
+
+    } else if (referer && referer.includes('/pageb')) {
+        console.log('Client is from /pageb');
+
+
+        // Send the initial card positions to the new user
+        socket.emit('initialize-cards', Object.values(cardPositions));
+
+        // Handle move-card event
+        socket.on('move-card', (data) => {
+            // Update the card position in the server
+            cardPositions[data.id] = { id: data.id, x: data.x, y: data.y };
+
+            // Broadcast the updated card position to all other clients
+            io.emit('move-card', cardPositions[data.id]);
+        });
+
+        // Handle initialize-s event (sync initial card positions)
+        socket.on('initialize-s', (positions) => {
+            positions.forEach((pos) => {
+                cardPositions[pos.id] = { id: pos.id, x: pos.x, y: pos.y };
+            });
+
+            // Broadcast all card initial positions to the clients
+            io.emit('initialize-cards', Object.values(cardPositions));
+        });
+
+        // Handle rollDice event
+        socket.on('rollDice', (data) => {
+            console.log('Roll dice event received:', data);
+
+            // Broadcast the dice roll to other users
+            socket.broadcast.emit('rollDice', data);
+        });
+    } else {
+        console.log('Client is from an unknown page, no specific events bound.');
+    }
+
+    io.on('connection', (socket) => {
+        console.log('A user connected:', socket.id);
     });
+});
 
-    // 广播所有卡片的初始位置给客户端
-    io.emit("initialize-cards", Object.values(cardPositions));
-  });
-
-   // 监听摇动色子事件
-   socket.on('rollDice', (data) => {
-    console.log('Roll dice event received:', data);
-
-    // 广播给其他用户
-    socket.broadcast.emit('rollDice', data);
-  });
-
-
-// Handle a disconnection event
-    socket.on("disconnect", () => {  // Listen for the disconnection event when a user disconnects from the server
-        console.log("A user disconnected"+ socket.id);  // Log when a user disconnects from the server
-    });
+let port = process.env.PORT || 3000;
+server.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
 

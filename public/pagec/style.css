@@ -1,0 +1,100 @@
+body {
+    background-color: chocolate;
+}
+
+.interesting-background {
+    text-align: center;
+    font-weight: bold;
+    font-size: 34px;
+    color: white;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); 
+    margin: 20px 0;
+    font-style: italic;
+
+}
+
+.reinterpret-familiar {
+    font-style: italic;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    margin: 55px 0;
+}
+
+.info-container {
+    background-color: white;
+    padding: 30px;
+    border: 2px solid #D2B48C;
+    border-radius: 10px;
+    margin: 30px auto;
+    max-width: 600px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+
+.game-characters-intro {
+    color: #333;
+    padding: 10px 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.Alexander {
+    Width: 137.046px;
+    Height: 209.04px;
+}
+
+.Charlemagne {
+    Width: 137.046px;
+    Height: 209.04px;
+}
+
+.David {
+    Width: 137.046px;
+    Height: 209.04px;
+}
+
+img.David {
+    display: block;
+    margin: 5% auto;
+}
+
+.Caesar {
+    Width: 137.046px;
+    Height: 209.04px;
+}
+
+img.Caesar {
+    display: block;
+    margin: 5% auto;
+}
+
+#backtopagea {
+    position: fixed;
+    right: 20px;
+    bottom: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+#backtopagea:hover {
+    background-color: #45a049;
+}
+
+
+.Conqueror {
+    position: absolute;
+    top: 5000px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15%;
+    height: auto;
+}

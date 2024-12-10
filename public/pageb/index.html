@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conqueror</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.11.1/p5.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="sketch.js"></script>
+  <script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body>
+
+  <script>
+    //console.log('Viewport width:', window.innerWidth);
+  </script>
+
+  <div class="container">
+
+    <section class="board_container">
+
+    </section>
+
+    <div id="center-section">
+
+      <a-scene embedded vr-mode-ui="enabled: false">
+        <!-- 摄像机 -->
+        <a-camera position="0 1.6 3">
+          <a-cursor visible="false"></a-cursor> <!-- 用于点击交互 -->
+
+        </a-camera>
+
+
+        <!-- 光源 -->
+        <a-light type="ambient" intensity="0.5"></a-light>
+        <a-light type="point" position="0 3 0" intensity="1"></a-light>
+
+        <a-assets>
+          <img id="diceImg1" src="./diceImg/dice1.png">
+          <img id="diceImg2" src="./diceImg/dice2.png">
+          <img id="diceImg3" src="./diceImg/dice3.png">
+          <img id="diceImg4" src="./diceImg/dice4.png">
+          <img id="diceImg5" src="./diceImg/dice5.png">
+          <img id="diceImg6" src="./diceImg/dice6.png">
+        </a-assets>
+
+        <!-- 3D 骰子 -->
+        <a-box id="dice" position="0 1 -2" rotation="0 45 45" width="1" height="1" depth="1">
+          <!-- 为每个面应用不同的纹理 -->
+          <a-box material="src: #diceImg1; side: front;" position="0 0 0.5" width="1" height="1" depth="0.1"></a-box>
+          <!-- 正面 -->
+          <a-box material="src: #diceImg2; side:double;" position="0 0 -0.5" width="1" height="1" depth="0.1"></a-box>
+          <!-- 背面 -->
+          <a-box material="src: #diceImg3; side: left;" position="-0.5 0 0" width="0.1" height="1" depth="1"></a-box>
+          <!-- 左面 -->
+          <a-box material="src: #diceImg4; side: right;" position="0.5 0 0" width="0.1" height="1" depth="1"></a-box>
+          <!-- 右面 -->
+          <a-box material="src: #diceImg5; side: top;" position="0 0.5 0" width="1" height="0.1" depth="1"></a-box>
+          <!-- 顶面 -->
+          <a-box material="src: #diceImg6; side: bottom;" position="0 -0.5 0" width="1" height="0.1" depth="1"></a-box>
+          <!-- 底面 -->
+        </a-box>
+
+
+      </a-scene>
+      <button id="my-button">Reset Dice</button>
+    </div>
+
+    <section class="poker_container">
+      <div class="box box-club">Resources of Club Kindom
+        <img class="poker-card box-club" id="card2.12" src="pokerImg/2.12.png" draggable="true" alt="P-13">
+        <img class="poker-card box-club" id="card2.11" src="pokerImg/2.11.png" draggable="true" alt="P-14">
+        <img class="poker-card box-club" id="card2.10" src="pokerImg/2.10.png" draggable="true" alt="P-15">
+        <img class="poker-card box-club" id="card2.9" src="pokerImg/2.9.png" draggable="true" alt="P-16">
+        <img class="poker-card box-club" id="card2.8" src="pokerImg/2.8.png" draggable="true" alt="P-17">
+        <img class="poker-card box-club" id="card2.7" src="pokerImg/2.7.png" draggable="true" alt="P-18">
+        <img class="poker-card box-club" id="card2.6" src="pokerImg/2.6.png" draggable="true" alt="P-19">
+        <img class="poker-card box-club" id="card2.5" src="pokerImg/2.5.png" draggable="true" alt="P-20">
+        <img class="poker-card box-club" id="card2.4" src="pokerImg/2.4.png" draggable="true" alt="P-21">
+        <img class="poker-card box-club" id="card2.3" src="pokerImg/2.3.png" draggable="true" alt="P-22">
+        <img class="poker-card box-club" id="card2.2" src="pokerImg/2.2.png" draggable="true" alt="P-23">
+        <img class="poker-card box-club" id="card2.1" src="pokerImg/2.1.png" draggable="true" alt="P-24">
+        <img class="poker-card box-club" id="card2.13" src="kingImg/2.13.png" draggable="true" alt="P-kingc">
+      </div>
+
+
+
+      <div class="box box-heart">Resources of Heart Kindom
+        <img class="poker-card box-heart" id="card3.12" src="pokerImg/3.12.png" draggable="true" alt="P-25">
+        <img class="poker-card box-heart" id="card3.11" src="pokerImg/3.11.png" draggable="true" alt="P-26">
+        <img class="poker-card box-heart" id="card3.10" src="pokerImg/3.10.png" draggable="true" alt="P-27">
+        <img class="poker-card box-heart" id="card3.9" src="pokerImg/3.9.png" draggable="true" alt="P-28">
+        <img class="poker-card box-heart" id="card3.8" src="pokerImg/3.8.png" draggable="true" alt="P-29">
+        <img class="poker-card box-heart" id="card3.7" src="pokerImg/3.7.png" draggable="true" alt="P-30">
+        <img class="poker-card box-heart" id="card3.6" src="pokerImg/3.6.png" draggable="true" alt="P-31">
+        <img class="poker-card box-heart" id="card3.5" src="pokerImg/3.5.png" draggable="true" alt="P-32">
+        <img class="poker-card box-heart" id="card3.4" src="pokerImg/3.4.png" draggable="true" alt="P-33">
+        <img class="poker-card box-heart" id="card3.3" src="pokerImg/3.3.png" draggable="true" alt="P-34">
+        <img class="poker-card box-heart" id="card3.2" src="pokerImg/3.2.png" draggable="true" alt="P-35">
+        <img class="poker-card box-heart" id="card3.1" src="pokerImg/3.1.png" draggable="true" alt="P-36">
+        <img class="poker-card box-club" id="card3.13" src="kingImg/3.13.png" draggable="true" alt="P-kingh">
+      </div>
+
+      <div class="box box-spade">Resources of Spade Kindom
+        <img class="poker-card box-spade" id="card4.12" src="pokerImg/4.12.png" draggable="true" alt="P-37">
+        <img class="poker-card box-spade" id="card4.11" src="pokerImg/4.11.png" draggable="true" alt="P-38">
+        <img class="poker-card box-spade" id="card4.10" src="pokerImg/4.10.png" draggable="true" alt="P-39">
+        <img class="poker-card box-spade" id="card4.9" src="pokerImg/4.9.png" draggable="true" alt="P-40">
+        <img class="poker-card box-spade" id="card4.8" src="pokerImg/4.8.png" draggable="true" alt="P-41">
+        <img class="poker-card box-spade" id="card4.7" src="pokerImg/4.7.png" draggable="true" alt="P-42">
+        <img class="poker-card box-spade" id="card4.6" src="pokerImg/4.6.png" draggable="true" alt="P-43">
+        <img class="poker-card box-spade" id="card4.5" src="pokerImg/4.5.png" draggable="true" alt="P-44">
+        <img class="poker-card box-spade" id="card4.4" src="pokerImg/4.4.png" draggable="true" alt="P-45">
+        <img class="poker-card box-spade" id="card4.3" src="pokerImg/4.3.png" draggable="true" alt="P-46">
+        <img class="poker-card box-spade" id="card4.2" src="pokerImg/4.2.png" draggable="true" alt="P-47">
+        <img class="poker-card box-spade" id="card4.1" src="pokerImg/4.1.png" draggable="true" alt="P-48">
+        <img class="poker-card box-club" id="card4.13" src="kingImg/4.13.png" draggable="true" alt="P-kings">
+      </div>
+
+      <div class="box box-diamond">Resources of Diamond Kindom
+        <img class="poker-card box-diamond" id="card1.12" src="pokerImg/1.12.png" draggable="true" alt="P-1">
+        <img class="poker-card box-diamond" id="card1.11" src="pokerImg/1.11.png" draggable="true" alt="P-2">
+        <img class="poker-card box-diamond" id="card1.10" src="pokerImg/1.10.png" draggable="true" alt="P-3">
+        <img class="poker-card box-diamond" id="card1.9" src="pokerImg/1.9.png" draggable="true" alt="P-4">
+        <img class="poker-card box-diamond" id="card1.8" src="pokerImg/1.8.png" draggable="true" alt="P-5">
+        <img class="poker-card box-diamond" id="card1.7" src="pokerImg/1.7.png" draggable="true" alt="P-6">
+        <img class="poker-card box-diamond" id="card1.6" src="pokerImg/1.6.png" draggable="true" alt="P-7">
+        <img class="poker-card box-diamond" id="card1.5" src="pokerImg/1.5.png" draggable="true" alt="P-8">
+        <img class="poker-card box-diamond" id="card1.4" src="pokerImg/1.4.png" draggable="true" alt="P-9">
+        <img class="poker-card box-diamond" id="card1.3" src="pokerImg/1.3.png" draggable="true" alt="P-10">
+        <img class="poker-card box-diamond" id="card1.2" src="pokerImg/1.2.png" draggable="true" alt="P-11">
+        <img class="poker-card box-diamond" id="card1.1" src="pokerImg/1.1.png" draggable="true" alt="P-12">
+        <img class="poker-card box-club" id="card1.13" src="kingImg/1.13.png" draggable="true" alt="P-kingd">
+      </div>
+
+    </section>
+
+
+    <div id="slide-out-panel">
+      <section id="objective">
+        <h1>Game Objective</h1>
+        <p>When all cities are occupied, the player who occupied the most cities wins.</p>
+      </section>
+
+      <section id="game-flow">
+        <h2>Game Flow</h2>
+        <p>1. Each green grid represents a city. The four golden areas represent the four kingdoms, each containing the
+          resources of the kings.</p>
+        <p>2. Each player takes turns rolling a die and moves according to the result.</p>
+        <p>3. Each new round of conquest for a king begins from the city they last captured.</p>
+        <p>4. If a player lands on an unoccupied city, they can choose to spend a certain amount of resources to claim
+          it.
+        </p>
+        <p>5. If a player lands on a city occupied by another player, they must offer a higher resource to take over the
+          city or choose to engage in special events.</p>
+        <p>6. Number 1 is the lowest value, and queen is the highest.</p>
+        <p>7. When the queen is guarding a city, other kings cannot activate any of their special abilities.</p>
+      </section>
+
+      <section id="special-abilities">
+        <h3>Special Abilities</h3>
+
+        <article class="king" id="king-clubs">
+          <h4>King of Clubs</h4>
+          <img src="kingImg/2.13.png" alt="King of Clubs" class="king-img" width="110"></img>
+          <p>
+            <strong>Skill - Conquest Expansion:</strong> When passing through a city occupied by another king, they can
+            initiate a duel (Roll the die; choose to bet on high or low. If successful, they gain ownership of the city
+            by paying any one of the resources. )
+          </p>
+        </article>
+
+        <article class="king" id="king-hearts">
+          <h4>King of Hearts</h4>
+          <img src="kingImg/3.13.png" alt="King of Hearts" class="king-img" width="110"></img>
+          <p>
+            <strong>Skill - Alliance Power:</strong> Upon occupying 3 neighboring cities or above, they will permanently
+            own these cities.
+          </p>
+        </article>
+
+        <article class="king" id="king-spades">
+          <h4>King of Spades</h4>
+          <img src="kingImg/4.13.png" alt="King of Spades" width="110"></img>
+          <p>
+            <strong>Skill - Oracle Insight:</strong> Gains two rolls during their turn, with movement determined by the
+            second roll.
+          </p>
+        </article>
+
+        <article class="king" id="king-diamonds">
+          <h4>King of Diamonds</h4>
+          <img src="kingImg/1.13.png" alt="King of Diamonds" width="110"></img>
+          <p>
+            <strong>Skill - Wealth Accumulation:</strong> Can seize any one resource from the opponent, but cannot
+            get the ownership of the city where the two sides meet, nor from the resources of the captured cities, these
+            captured cards are only owned and cannot be used. When Jake or Queen occupy a city, this ability is
+            nullified, and also cannot seize the opponent's Jake and Queen.
+          </p>
+        </article>
+      </section>
+
+      <img class="Conqueror" src="kingImg/conqueror.png" alt="conqueror" >
+
+    </div>
+
+    <button id="top-right-button">☰</button>
+
+    <button id="backtomain">Back to Main Page</button>
+
+
+  </div>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conqueror Assign</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="sketch.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <div class="kingPoker">
+        <div class="kingBack" onclick="flipImage(this)">
+            <div class="kingCard" data-index="0">
+                <img class="kingB" src="kingA/back.png" alt="kingB">
+                <img class="kingD" src="kingA/1.13.png" alt="kingD" style="display:none;">
+            </div>
+        </div>
+        <div class="kingBack" onclick="flipImage(this)">
+            <div class="kingCard" data-index="1">
+                <img class="kingB" src="kingA/back.png" alt="kingB">
+                <img class="kingS" src="kingA/2.13.png" alt="kingS" style="display:none;">
+            </div>
+        </div>
+        <div class="kingBack" onclick="flipImage(this)">
+            <div class="kingCard" data-index="2">
+                <img class="kingB" src="kingA/back.png" alt="kingB">
+                <img class="kingH" src="kingA/3.13.png" alt="kingH" style="display:none;">
+            </div>
+        </div>
+        <div class="kingBack" onclick="flipImage(this)">
+            <div class="kingCard" data-index="3">
+                <img class="kingB" src="kingA/back.png" alt="kingB">
+                <img class="kingC" src="kingA/4.13.png" alt="kingC" style="display:none;">
+            </div>
+        </div>
+    </div>
+
+    <p class="startinfo"> This game requires four players. Click on the picture above to get a character, and click
+        "Start Game" to enter the game page.</p>
+
+    <button id="StartGame">Start Game</button>
+
+    <button id="gotobackgroundknowledge">Background Knowledge Info</button>
+
+
+    <img class="Conqueror" src="kingA/conqueror.png" alt="conqueror" >
+
+</body>
+
+</html>

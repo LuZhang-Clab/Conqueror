@@ -18,7 +18,7 @@ canvas {
 
 
 #center-section {
-  position: absolute;
+  position: fixed;
   top: 125px;
   /* 对应 gridSize 的起点 */
   left: 125px;
@@ -27,7 +27,7 @@ canvas {
   /* 4x gridSize */
   height: 500px;
   /* 4x gridSize */
-  background:#C1E1C1;
+  background: #C1E1C1;
   z-index: 0;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ a-scene {
 
 
 .poker_container {
-  position: absolute;
+  position: fixed;
   top: 0px;
   /* 对应 gridSize 的起点 */
   left: 810px;
@@ -79,7 +79,7 @@ a-scene {
 }
 
 .box {
-  width: 275px; 
+  width: 275px;
   height: 350px;
   background-color: #FFD580;
   display: flex;
@@ -87,8 +87,8 @@ a-scene {
   align-items: center;
   border: 1px solid #333;
   font-size: 18px;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
 }
 
 #top-right-button {
@@ -102,13 +102,18 @@ a-scene {
   color: white;
   cursor: pointer;
   z-index: 2;
-  animation: color-change 1s infinite; 
+  animation: color-change 1s infinite;
   transition: background-color 0.3s;
 }
 
- @keyframes color-change {
-  0% { background-color: white; } 
-      100% { background-color: green; } 
+@keyframes color-change {
+  0% {
+    background-color: white;
+  }
+
+  100% {
+    background-color: green;
+  }
 }
 
 #top-right-button:hover {
@@ -128,6 +133,7 @@ a-scene {
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
+  z-index: 2;
 }
 
 /* 滑出面板内容 */
@@ -144,100 +150,121 @@ a-scene {
   position: absolute;
   border: 1px solid black;
   transform: translateY(-70%);
-  background-color: white; 
-  transition: background-color 0.3s ease; 
+  background-color: white;
+  transition: background-color 0.3s ease;
 }
 
 
+
 .poker-card:hover {
-  background-color: chocolate; 
+  background-color: chocolate;
 }
 
 
 .poker-card:nth-child(1) {
   transform: translate(-90px, -70%);
 }
+
 .poker-card:nth-child(2) {
   transform: translate(-75px, -70%);
 }
+
 .poker-card:nth-child(3) {
   transform: translate(-60px, -70%);
 }
+
 .poker-card:nth-child(4) {
   transform: translate(-45px, -70%);
 }
+
 .poker-card:nth-child(5) {
   transform: translate(-30px, -70%);
 }
+
 .poker-card:nth-child(6) {
   transform: translate(-15px, -70%);
 }
+
 .poker-card:nth-child(7) {
   transform: translate(0px, -70%);
 }
+
 .poker-card:nth-child(8) {
   transform: translate(15px, -70%);
 }
+
 .poker-card:nth-child(9) {
   transform: translate(30px, -70%);
 }
+
 .poker-card:nth-child(10) {
   transform: translate(45px, -70%);
 }
+
 .poker-card:nth-child(11) {
   transform: translate(60px, -70%);
 }
+
 .poker-card:nth-child(12) {
   transform: translate(75px, -70%);
-} 
+}
 
 #card2\.13 {
   Width: 91.364px;
   Height: 139.36px;
-  position: fixed; /* 设置为固定定位 */
-  pointer-events: none; /* 禁用鼠标事件，防止点击或拖动 */
-  z-index: 10; 
+  position: fixed;
+  /* 设置为固定定位 */
+  pointer-events: none;
+  /* 禁用鼠标事件，防止点击或拖动 */
+  z-index: 10;
   transform: translateY(65%)
 }
 
 #card1\.13 {
   Width: 91.364px;
   Height: 139.36px;
-  position: fixed; /* 设置为固定定位 */
-  pointer-events: none; /* 禁用鼠标事件，防止点击或拖动 */
-  z-index: 10; 
+  position: fixed;
+  /* 设置为固定定位 */
+  pointer-events: none;
+  /* 禁用鼠标事件，防止点击或拖动 */
+  z-index: 10;
   transform: translateY(65%)
 }
 
 #card3\.13 {
   Width: 91.364px;
   Height: 139.36px;
-  position: fixed; /* 设置为固定定位 */
-  pointer-events: none; /* 禁用鼠标事件，防止点击或拖动 */
-  z-index: 10; 
+  position: fixed;
+  /* 设置为固定定位 */
+  pointer-events: none;
+  /* 禁用鼠标事件，防止点击或拖动 */
+  z-index: 10;
   transform: translateY(65%)
 }
 
 #card4\.13 {
   Width: 91.364px;
   Height: 139.36px;
-  position: fixed; /* 设置为固定定位 */
-  pointer-events: none; /* 禁用鼠标事件，防止点击或拖动 */
-  z-index: 10; 
+  position: fixed;
+  /* 设置为固定定位 */
+  pointer-events: none;
+  /* 禁用鼠标事件，防止点击或拖动 */
+  z-index: 10;
   transform: translateY(65%)
 }
 
 #backtomain {
-  position: fixed; 
-  right: 20px;     
-  bottom: 10px;    
-  padding: 10px 20px; 
-  background-color: #4CAF50; 
-  color: white;    
-  border: none;    
-  border-radius: 5px; 
-  font-size: 16px;  
-  cursor: pointer; 
+  position: fixed;
+  right: 20px;
+  bottom: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 2;
 }
 
 #backtomain:hover {
@@ -246,11 +273,141 @@ a-scene {
 
 
 .Conqueror {
-  position: absolute; 
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, 1000%); 
-  width: 27%; 
-  height: auto; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 1000%);
+  width: 27%;
+  height: auto;
 }
 
+.city {
+  width: 124px;
+  height: 124px;
+  position: fixed;
+  border: black 1px;
+  z-index: -1; 
+}
+
+#city1 {
+  top: 0;
+  left: 0;
+}
+
+#city2 {
+  top: 0;
+  left: 125px;
+}
+
+#city3 {
+  top: 0;
+  left: 250px;
+}
+
+#city4 {
+  top: 0;
+  left: 375px;
+}
+
+#city5 {
+  top: 0;
+  left: 500px;
+}
+
+#city6 {
+  top: 0;
+  left: 625px;
+}
+
+#city7 {
+  top: 125px;
+  left: 0;
+}
+
+#city8 {
+  top: 250px;
+  left: 0;
+}
+
+#city9 {
+  top: 375px;
+  left: 0;
+}
+
+#city10 {
+  top: 500px;
+  left: 0;
+}
+
+#city11 {
+  top: 625px;
+  left: 0;
+}
+
+#city12 {
+  top: 625px;
+  left: 125px;
+}
+
+#city13 {
+  top: 625px;
+  left: 250px;
+}
+
+#city14 {
+  top: 625px;
+  left: 375px;
+}
+
+#city15 {
+  top: 625px;
+  left: 500px;
+}
+
+#city16 {
+  top: 625px;
+  left: 625px;
+}
+
+#city17 {
+  top: 500px;
+  left: 625px;
+}
+
+#city18 {
+  top: 375px;
+  left:625px;
+}
+
+#city19 {
+  top: 250px;
+  left: 625px;
+}
+
+#city20 {
+  top: 125px;
+  left: 625px;
+}
+
+.circle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; /* 保证在 .city 元素上方 */
+  pointer-events: none; 
+}
+
+.circle {
+  position: fixed;
+  background-color: #ffc300; 
+  color: black;
+  font-size: 19px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  line-height: 32px; 
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.5); 
+  border: black 1px;
+}

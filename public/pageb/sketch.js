@@ -1,86 +1,43 @@
+window.onload = () => {
+  setupCircles(); // 在页面加载完成后执行
+};
 
+function setupCircles() {
+  const container = document.querySelector('.circle-container');
 
+  if (!container) {
+    console.error('Error: .circle-container element not found.');
+    return;
+  }
 
-function setup() {
-  let canvas = createCanvas(750, 750);
-  noLoop(); // No looping for animation
-  canvas.style('position', 'absolute'); // 让 canvas 不影响其他元素的布局
-  canvas.style('top', '0'); // 固定在页面顶部
-  canvas.style('left', '0'); // 固定在页面左侧
-  canvas.style('z-index', '-1'); // 将 canvas 放到背景层
-
-  let gridSize = 125; // Size of each grid
-  let rows = 6; // Number of rows
-  let cols = 6; // Number of columns
-
-  const cityNames = [
-    "Minas Tirith", "Barad-dûr", "Hobbiton", "Isengard", "Lothlórien",
-    "Annúminas", "Rivendell", "Dol Guldur", "Isildur", "Osgiliath",
-    "Gondolin", "Cair Andros", "Anglond", "Minas Morgul", "Dol Amroth",
-    "Bree", "Weathertop", "Amon Rûdh", "Lond Daer", "Harad"
-  ];
-
-  let cityIndex = 0; // 用于遍历城市名称数组
-
-  // Define the order of numbers 
-  let gridOrder = [
-    [1, 2, 3, 4, 5, 6],           // 最上面一行
-    [20, null, null, null, null, 7], // 左侧第一个和右侧第一个（跳过中间）
+  const gridOrder = [
+    [1, 2, 3, 4, 5, 6],
+    [20, null, null, null, null, 7],
     [19, null, null, null, null, 8],
     [18, null, null, null, null, 9],
     [17, null, null, null, null, 10],
-    [16, 15, 14, 13, 12, 11],    // 最下面一行
+    [16, 15, 14, 13, 12, 11],
   ];
 
-  // Draw the grid
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      let x = j * gridSize; // Calculate x position of the grid
-      let y = i * gridSize; // Calculate y position of the grid
+  const gridSize = 125;
 
-  
-      fill(0, 163, 108); 
-      stroke(0); 
-      rect(x, y, gridSize, gridSize); 
-
-      // 获取当前格子的数字
-      let number = gridOrder[i][j];
-
-      // 如果是有效格子，则绘制数字和城市名称
+  for (let i = 0; i < gridOrder.length; i++) {
+    for (let j = 0; j < gridOrder[i].length; j++) {
+      const number = gridOrder[i][j];
       if (number !== null) {
-        let circleX = x + gridSize / 2; // 圆心的 x 坐标
-        let circleY = y + gridSize * 0.8; // 圆心的 y 坐标（靠近底部）
-        let circleDiameter = gridSize * 0.25; // 圆的直径
-
-        fill(255, 195, 0); 
-        noStroke(); 
-        ellipse(circleX, circleY, circleDiameter); 
-
-        fill(0); 
-        textSize(16); 
-        textAlign(CENTER, CENTER); 
-        text(number, circleX, circleY); 
-
-        if (cityIndex < cityNames.length) {
-          fill(0); 
-          textSize(18); 
-          textStyle(BOLD); 
-          textAlign(CENTER, CENTER); 
-          text(cityNames[cityIndex], x + gridSize / 2, y + gridSize / 4); 
-          cityIndex++; 
-        }
+        const circle = document.createElement('div');
+        circle.className = 'circle';
+        circle.style.left = `${j * gridSize + gridSize / 2 - 12.5}px`;
+        circle.style.top = `${i * gridSize + gridSize * 0.8 - 12.5}px`;
+        circle.textContent = number;
+        container.appendChild(circle); // 将小圆圈添加到 .circle-container
       }
     }
   }
 }
 
-function draw() {
-  // No drawing logic is needed here, since everything is done in the setup function
-}
-
-
 window.addEventListener("load", () => {
- 
+
 });
 
 window.addEventListener("load", () => {
@@ -209,7 +166,7 @@ socket.on('connect', function () {
 
 //Listen for an event named 'message-share' from the server
 socket.on('message-share', (data) => {
-  console.log('Message received from server:', data); 
+  console.log('Message received from server:', data);
   addDragFunctionality(document.getElementById(data.id));
 
 });
@@ -257,14 +214,14 @@ function animateDice(dice, rotation, faceNumber) {
     property: 'rotation',
     to: `${x} ${y} ${z}`,
     dur: 1000,
-    loop: false 
+    loop: false
   });
 
 
   dice.addEventListener('animationcomplete', () => {
 
     updateDiceRotation(faceNumber, dice);
-  }, { once: true }); 
+  }, { once: true });
 }
 
 
@@ -296,7 +253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Dice element found!');
         dice.addEventListener('mousedown', () => {
           console.log('Dice mousedown event triggered!');
-          rollDice(dice); 
+          rollDice(dice);
         });
       }
     });
@@ -306,8 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const sceneEl = document.querySelector('a-scene');
-  const resetButton = document.getElementById('my-button'); 
-  const dice = document.querySelector('#dice'); 
+  const resetButton = document.getElementById('my-button');
+  const dice = document.querySelector('#dice');
 
   if (sceneEl) {
     sceneEl.addEventListener('loaded', () => {
@@ -326,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 色子拖动功能
         dice.addEventListener('mousedown', () => {
           console.log('Dice mousedown event triggered!');
-          rollDice(dice); 
+          rollDice(dice);
         });
 
       }
